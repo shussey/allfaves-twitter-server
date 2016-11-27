@@ -11,7 +11,17 @@ var client = new Twitter({
 });
 
 
-// console.log(process.env);
+router.get('/app/tweets/:user', function(req, res, next) {
+  var user = req.params['user'];
+  var params = {screen_name: user};
+
+  client.get('statuses/user_timeline', params, function(error, tweets, response) {
+    if (!error) {
+      //console.log(tweets)
+      res.send(tweets)
+    }
+  });
+});
 
 router.get('/app/tweetsNASA', function(req, res, next) {
   var params = {screen_name: 'NASA'};
